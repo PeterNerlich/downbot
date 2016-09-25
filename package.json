@@ -9,10 +9,8 @@
   "author": "Peter Nerlich",
   "license": "AGPL 3.0",
   "dependencies": {
-    "cheerio": "^0.19.0",
     "epub-gen": "0.0.13",
     "stream-counter": "^1.0.0",
     "youtube-dl": "^1.10.5",
-    "ytdl": "^0.3.12"
   }
 }

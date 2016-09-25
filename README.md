@@ -1,8 +1,13 @@
 # downbot
-Download a series of anime episodes from [Proxer.me](https://proxer.me) to view undisturbed in times of a slow internet connection
+Download a series of anime episodes or manga chapters from [Proxer.me](https://proxer.me) to view undisturbed in times of a slow internet connection
+
+## Disclaimer
+This software should not be used to obtain and distribute content illegally. It's only purpose is to help when viewing online conveniently is impossible. Since ads are not included, please [donate to Proxer.me](http://proxer.me/donate#top) to make up for compensation they had forfeit this way!
 
 ## Usage
-`nodejs index.js "{`OPTIONS`}" "[`YTDL`]"`
+
+### Anime
+`nodejs anime.js "{`OPTIONS`}" "[`YTDL`]"`
 
 where OPTIONS is an JSON object of:
 
@@ -15,10 +20,19 @@ where OPTIONS is an JSON object of:
 
 YTDL is an `[array]` of options passed to `youtube-dl`
 
-## Dependencies
-(taken from the `package.json`, not cleaned up → two different YTDL packages?!?)
+### Manga
+`nodejs manga.js "{`OPTIONS`}"`
 
-    "cheerio": "^0.19.0",
+where OPTIONS is an JSON object of:
+
+    manga:       [number]              Proxer ID of manga
+    start:       [number]              first chapter to start with
+    count:       [number]              count of chapters to download
+    output:      [string]              path/ to save to, with "#" chapter counter
+    version:     [number]              0: English, 1: German
+
+## Dependencies
+
+    "epub-gen": "0.0.13",
     "stream-counter": "^1.0.0",
-    "youtube-dl": "^1.10.5",
-    "ytdl": "^0.3.12"
+    "youtube-dl": "^1.10.5"

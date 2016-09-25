@@ -176,7 +176,7 @@ function proxerurl(anime, episode, version) {
 }
 
 function printhelp() {
-	log('Usage:\tnodejs index.js "{OPTIONS}" "[YTDL]"\n  where OPTIONS is an JSON object of:\n    anime:       [number]              Proxer ID of anime\n    start:       [number]              first episode to start with\n    count:       [number]              count of episodes to download\n    mirrorpref:  [array] of [string]s  list of preferred mirrors\n    mirrorblack: [array] of [string]s  blacklist of mirrors\n    output:      [string]              path/file.name to save to, with "#" episode counter\n    version:     [number]              0: EngSub, 1: EngDub, 2: GerSub, 3: GerDub\n\n    YTDL is an [array] of options passed to youtube-dl');
+	log('Usage:\tnodejs anime.js "{OPTIONS}" "[YTDL]"\n  where OPTIONS is an JSON object of:\n    anime:       [number]              Proxer ID of anime\n    start:       [number]              first episode to start with\n    count:       [number]              count of episodes to download\n    mirrorpref:  [array] of [string]s  list of preferred mirrors\n    mirrorblack: [array] of [string]s  blacklist of mirrors\n    output:      [string]              path/file.name to save to, with "#" episode counter\n    version:     [number]              0: EngSub, 1: EngDub, 2: GerSub, 3: GerDub\n\n    YTDL is an [array] of options passed to youtube-dl');
 }
 
 // Utility function that downloads a URL and invokes
