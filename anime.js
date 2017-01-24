@@ -112,9 +112,15 @@ function step(i) {
 				if (fs.statSync(file+'.'+mirrors[m].type+'.part').size < 2048) { //minimum 2KB, else invalid
 					if (m+1 < mirrors.length) {
 						error('['+i+'] Error downloading. Trying next mirror ('+mirrors[m].name+')...');
+						fs.unlink(file+'.'+mirrors[m].type+'.part', function(err) {
+							if (err) log('ERROR removing invalid partial download '+file+'.'+mirrors[m].type+'.part :', err);
+						});
 						nextMirror(m+1);
 					} else {
 						error('['+i+'] Error downloading. Skipping...');
+						fs.unlink(file+'.'+mirrors[m].type+'.part', function(err) {
+							if (err) log('ERROR removing invalid partial download '+file+'.'+mirrors[m].type+'.part :', err);
+						});
 						step(i+1);
 					}
 					return;
@@ -125,9 +131,11 @@ function step(i) {
 				}
 				mirrors.forEach(function(e, i){
 					fs.stat(file+'.'+mirrors[i].type+'.part', function(err) {
-						if (!err) fs.unlink(file+'.'+mirrors[i].type+'.part', function(err) {
-							if (err) log('ERROR removing old partial download '+file+'.'+mirrors[i].type+'.part :', err);
-						});
+						if (!err) {
+							fs.unlink(file+'.'+mirrors[i].type+'.part', function(err) {
+								if (err) log('ERROR removing old partial download '+file+'.'+mirrors[i].type+'.part :', err);
+							});
+						}
 					});
 				});
 				log('  Finished file://'+file);
@@ -141,9 +149,15 @@ function step(i) {
 				});*/
 				if (m+1 < mirrors.length) {
 					error('['+i+'] Error downloading. Trying next mirror ('+mirrors[m].name+')...');
+					fs.unlink(file+'.'+mirrors[m].type+'.part', function(err) {
+						if (err) log('ERROR removing invalid partial download '+file+'.'+mirrors[m].type+'.part :', err);
+					});
 					nextMirror(m+1);
 				} else {
 					error('['+i+'] Error downloading. Skipping...');
+					fs.unlink(file+'.'+mirrors[m].type+'.part', function(err) {
+						if (err) log('ERROR removing invalid partial download '+file+'.'+mirrors[m].type+'.part :', err);
+					});
 					step(i+1);
 				}
 				return;
@@ -201,6 +215,10 @@ function getMirrors(url, callback) {
 		if (streams === null) {
 			if (d.match(/<input type="submit" id="checkCaptcha" value="Weiter">/)) {
 				error('A wild CAPTCHA appeared! Aborting!');
+				process.exit();
+				return;
+			} else if (d.match(/<h1><span data-translate="checking_browser">Checking your browser before accessing<\/span> proxer.me.<\/h1>/)) {
+				error('Cloudflare DDOS protection active! Aborting!');
 				process.exit();
 				return;
 			}
