@@ -11,6 +11,6 @@
   "dependencies": {
     "epub-gen": "0.0.13",
     "stream-counter": "^1.0.0",
-    "youtube-dl": "^1.10.5",
+    "youtube-dl": "^1.10.5"
   }
 }
